@@ -1,0 +1,21 @@
+{
+  "name": "@dinoabsoluto/palette",
+  "version": "1.0.0",
+  "description": "Dino's palette",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "author": "Dino <dinoabsoluto+dev@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/lodash": "^4.14.123",
+    "@types/node": "^11.13.4",
+    "chalk": "^2.4.2",
+    "lodash": "^4.17.11",
+    "make-dir": "^3.0.0",
+    "typescript": "^3.4.3"
+  },
+  "dependencies": {}
+}
