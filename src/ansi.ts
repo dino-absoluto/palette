@@ -98,8 +98,8 @@ export const colorsANSI = once(() => initPalette({
 export const colorsMinus = once(() => initPalette({
   name: 'Minus'
 , hueOffset: -15
-, saturation: .9
+, saturation: .85
 , contrast: .5
 // , hues: [ 0, 120, 60, 240, 300, 180 ]
-, hues: [ 0, 120, 45, 240, 300, 210 ]
+, hues: [ 0, 108, 44, 220, 325, 188 ]
 }))
