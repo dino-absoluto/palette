@@ -8,6 +8,7 @@ interface PaletteOptions {
   saturation?: number
   contrast?: number
   lightness?: number
+  hues?: number[]
 }
 
 const createANSIPalette = (options: PaletteOptions = {}) => {
@@ -26,6 +27,16 @@ const createANSIPalette = (options: PaletteOptions = {}) => {
   , [ 180, .5, 0 ]
   , [ 0, 0, .25 ]
   ]
+  if (options.hues) {
+    const { hues } = options
+    for (let i = 0; i < 6; ++i) {
+      const h = hues[i]
+      if (h == null) {
+        break
+      }
+      hsdANSI[i + 1][0] = h
+    }
+  }
   for (const hsd of hsdANSI) {
     let [ h, s ] = hsd
     let y = 0.5 + hsd[2] + lightness
@@ -89,4 +100,6 @@ export const colorsMinus = once(() => initPalette({
 , hueOffset: -15
 , saturation: .85
 , contrast: .5
+// , hues: [ 0, 120, 60, 240, 300, 180 ]
+, hues: [ 0, 120, 45, 240, 300, 210 ]
 }))
