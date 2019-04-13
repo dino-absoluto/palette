@@ -119,6 +119,14 @@ export class Color {
     return chalk.bgRgb(r255, g255, b255)
   }
 
+  toHex () {
+    const { r255, g255, b255 } = this
+    return '#' +
+      r255.toString(16).padStart(2, '0') +
+      g255.toString(16).padStart(2, '0') +
+      b255.toString(16).padStart(2, '0')
+  }
+
   get luma () {
     const { r, g, b } = this
     return luma(r, g, b)
