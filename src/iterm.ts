@@ -5,21 +5,25 @@ import makeDir = require('make-dir')
 import handlebars = require('handlebars')
 import { Color } from './color'
 import {
+  colorsMinusLight,
   colorsMinus,
   colorsANSI } from './ansi'
 
 const template = handlebars.compile(
   readFileSync(__dirname + '/templates/iterm.hb').toString())
-const format = (palette: Color[]) => {
+const format = (palette: Color[], light = false) => {
   const colors = palette.map((color, index) => {
     return {
       name: `Ansi ${index} Color`,
       color
     }
   })
-  const bg = palette[0]
-  const fg = palette[15]
+  let bg = palette[0]
+  let fg = palette[15]
   const gray = palette[8]
+  if (light) {
+    [bg, fg] = [fg, bg]
+  }
   colors.push({
     name: 'Background Color',
     color: bg
@@ -58,3 +62,5 @@ writeFileSync(__dirname + '/../built/dino.itermcolors',
   format(colorsANSI()))
 writeFileSync(__dirname + '/../built/dino-minus.itermcolors',
   format(colorsMinus()))
+writeFileSync(__dirname + '/../built/dino-minus-light.itermcolors',
+  format(colorsMinusLight(), true))

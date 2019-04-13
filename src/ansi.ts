@@ -103,3 +103,12 @@ export const colorsMinus = once(() => initPalette({
 // , hues: [ 0, 120, 60, 240, 300, 180 ]
 , hues: [ 0, 108, 44, 220, 325, 188 ]
 }))
+
+export const colorsMinusLight = once(() => initPalette({
+  name: 'MinusLight'
+, hueOffset: -15
+, saturation: .75
+, contrast: 1.25
+// , hues: [ 0, 120, 60, 240, 300, 180 ]
+, hues: [ 0, 108, 44, 220, 325, 188 ]
+}))
