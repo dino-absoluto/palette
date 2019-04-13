@@ -1,45 +1,59 @@
 import { Color } from './color'
 import chalk from 'chalk'
+import once = require('lodash/once')
 
-export const colorsANSI = (() => {
+interface PaletteOptions {
+  name?: string
+  hueOffset?: number
+  saturation?: number
+  contrast?: number
+  lightness?: number
+}
+
+const createANSIPalette = (options: PaletteOptions = {}) => {
+  const hueOffset = options.hueOffset || 0
+  const saturation = options.saturation || 1
+  const contrast = options.contrast || 1
+  const lightness = options.lightness || 0
   const rgbANSI: Color[] = []
   const hsdANSI = [
-    [ 0, 0, -.45 ]
+    [ 0, 0, -.43 ]
   , [ 0, .5, 0 ]
   , [ 120, .5, 0 ]
   , [ 60, .5, 0 ]
   , [ 240, .5, 0 ]
   , [ 300, .5, 0 ]
   , [ 180, .5, 0 ]
-  , [ 0, 0, .1 ]
+  , [ 0, 0, .25 ]
   ]
-  const hueOffset = 0
   for (const hsd of hsdANSI) {
-    let[ h, s ] = hsd
-    let y = 0.5 + hsd[2]
+    let [ h, s ] = hsd
+    let y = 0.5 + hsd[2] + lightness
     h += hueOffset
+    s *= saturation
     const rgb = Color.fromHSY(h, s, y)
     rgbANSI.push(rgb)
   }
   for (const hsd of hsdANSI) {
     let [ h, s ] = hsd
-    let y = 0.65 + hsd[2]
+    let y = 0.5 + (.15 * contrast + hsd[2]) + lightness
     h += hueOffset
+    s *= saturation
     const rgb = Color.fromHSY(h, s, y)
     rgbANSI.push(rgb)
   }
   return rgbANSI
-})()
+}
 
-const print = () => {
+const printPalette = (palette: Color[]) => {
   const length = 8
   {
     const text = ' ABC '
-    let k = colorsANSI[0]
+    let k = palette[0]
     let out =
       chalk.bgWhite(k.toChalk()(text)) +
       k.toChalkBG()(text)
-    k = colorsANSI[length]
+    k = palette[length]
     out +=
       chalk.bgWhite(k.toChalk()(text)) +
       k.toChalkBG()(text)
@@ -47,11 +61,11 @@ const print = () => {
   }
   for (let i = 1; i < length; i ++) {
     const text = ' ABC '
-    let k = colorsANSI[i]
+    let k = palette[i]
     let out =
       k.toChalk()(text) +
       chalk.black(k.toChalkBG()(text))
-    k = colorsANSI[i + length]
+    k = palette[i + length]
     out +=
       k.toChalk()(text) +
       chalk.black(k.toChalkBG()(text))
@@ -59,4 +73,20 @@ const print = () => {
   }
 }
 
-print()
+const initPalette = (options: PaletteOptions) => {
+  const palette = createANSIPalette(options)
+  console.log(options.name)
+  printPalette(palette)
+  return palette
+}
+
+export const colorsANSI = once(() => initPalette({
+  name: 'Default'
+}))
+
+export const colorsMinus = once(() => initPalette({
+  name: 'Minus'
+, hueOffset: -15
+, saturation: .85
+, contrast: .5
+}))

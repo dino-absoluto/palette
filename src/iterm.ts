@@ -3,20 +3,23 @@ import {
   writeFileSync } from 'fs'
 import makeDir = require('make-dir')
 import handlebars = require('handlebars')
-import { colorsANSI } from './ansi'
+import { Color } from './color'
+import {
+  colorsMinus,
+  colorsANSI } from './ansi'
 
 const template = handlebars.compile(
   readFileSync(__dirname + '/templates/iterm.hb').toString())
-const toiTermFormat = () => {
-  const colors = colorsANSI.map((color, index) => {
+const format = (palette: Color[]) => {
+  const colors = palette.map((color, index) => {
     return {
       name: `Ansi ${index} Color`,
       color
     }
   })
-  const bg = colorsANSI[0]
-  const fg = colorsANSI[15]
-  const gray = colorsANSI[8]
+  const bg = palette[0]
+  const fg = palette[15]
+  const gray = palette[8]
   colors.push({
     name: 'Background Color',
     color: bg
@@ -49,5 +52,9 @@ const toiTermFormat = () => {
     colors
   })
 }
+
 makeDir.sync(__dirname + '/../built/')
-writeFileSync(__dirname + '/../built/dino.itermcolors', toiTermFormat())
+writeFileSync(__dirname + '/../built/dino.itermcolors',
+  format(colorsANSI()))
+writeFileSync(__dirname + '/../built/dino-minus.itermcolors',
+  format(colorsMinus()))
