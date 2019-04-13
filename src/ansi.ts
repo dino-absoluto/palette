@@ -1,9 +1,7 @@
 import { Color } from './color'
-import { writeFileSync } from 'fs'
 import chalk from 'chalk'
-import makeDir = require('make-dir')
 
-const colorsANSI = (() => {
+export const colorsANSI = (() => {
   const rgbANSI: Color[] = []
   const hsdANSI = [
     [ 0, 0, -.45 ]
@@ -62,41 +60,3 @@ const print = () => {
 }
 
 print()
-
-const toDictColor = (name: string, k: Color) => {
-  const { r, g, b } = k
-  return `<key>${name}</key>
-<dict>
-  <key>Blue Component</key>
-  <real>${b}</real>
-  <key>Green Component</key>
-  <real>${g}</real>
-  <key>Red Component</key>
-  <real>${r}</real>
-</dict>`
-}
-
-const toiTermFormat = () => {
-  const colors = colorsANSI.map((k, index) => {
-    return toDictColor(`Ansi ${index} Color`, k)
-  })
-  const bg = colorsANSI[0]
-  const fg = colorsANSI[15]
-  const gray = colorsANSI[8]
-  colors.push(toDictColor('Background Color', bg))
-  colors.push(toDictColor('Foreground Color', fg))
-  colors.push(toDictColor('Bold Color', fg))
-  colors.push(toDictColor('Cursor Color', fg))
-  colors.push(toDictColor('Cursor Text Color', bg))
-  colors.push(toDictColor('Selected Text Color', fg))
-  colors.push(toDictColor('Selection Color', gray))
-  const body = colors.join('\n')
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>${body}</dict>
-</plist>`
-}
-
-makeDir.sync(__dirname + '/../built/')
-writeFileSync(__dirname + '/../built/dino.itermcolors', toiTermFormat())
