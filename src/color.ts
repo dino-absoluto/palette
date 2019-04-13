@@ -22,6 +22,9 @@ export class Color {
   get r () { return this.$r }
   get g () { return this.$g }
   get b () { return this.$b }
+  get r255 () { return Math.round(this.r * 255) }
+  get g255 () { return Math.round(this.g * 255) }
+  get b255 () { return Math.round(this.b * 255) }
   get a () { return this.$a }
   set r (value: number) {
     this.$r = clamp(value, 0, 1)
@@ -107,19 +110,13 @@ export class Color {
   }
 
   toChalk () {
-    const { r, g, b } = this
-    return chalk.rgb(
-      Math.round(r * 255),
-      Math.round(g * 255),
-      Math.round(b * 255))
+    const { r255, g255, b255 } = this
+    return chalk.rgb(r255, g255, b255)
   }
 
   toChalkBG () {
-    const { r, g, b } = this
-    return chalk.bgRgb(
-      Math.round(r * 255),
-      Math.round(g * 255),
-      Math.round(b * 255))
+    const { r255, g255, b255 } = this
+    return chalk.bgRgb(r255, g255, b255)
   }
 
   get luma () {
