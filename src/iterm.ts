@@ -29,7 +29,7 @@ import {
   colorsANSI } from './ansi'
 
 const template = handlebars.compile(
-  readFileSync(__dirname + '/templates/iterm.hb').toString())
+  readFileSync(__dirname + '/templates/iterm.hbs').toString())
 const format = (palette: Color[], light = false) => {
   const colors = palette.map((color, index) => {
     return {
