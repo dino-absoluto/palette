@@ -120,7 +120,7 @@ const initPalette = (options: PaletteOptions) => {
 
 export const colorsANSI = once(() => initPalette({
   name: 'Default'
-, hueOffset: -15
+, hueOffset: -10
 }))
 
 export const colorsMinus = once(() => initPalette({

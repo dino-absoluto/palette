@@ -71,6 +71,10 @@ const format = (palette: Color[], light = false) => {
     name: 'Selection Color',
     color: gray
   })
+  colors.push({
+    name: 'Link Color',
+    color: palette[4]
+  })
   return template({
     colors
   })
