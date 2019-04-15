@@ -23,6 +23,7 @@ import makeDir = require('make-dir')
 import { Color } from './color'
 import {
   colorsMinus,
+  colorsMinusLight,
   colorsANSI } from './ansi'
 
 const format = (colors: Color[]) => {
@@ -51,3 +52,5 @@ writeFileSync(__dirname + '/../built/dino.json',
   format(colorsANSI()))
 writeFileSync(__dirname + '/../built/dino-minus.json',
   format(colorsMinus()))
+writeFileSync(__dirname + '/../built/dino-minus-light.json',
+  format(colorsMinusLight()))

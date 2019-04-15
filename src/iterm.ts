@@ -39,7 +39,7 @@ const format = (palette: Color[], light = false) => {
   })
   let bg = palette[0]
   let fg = palette[15]
-  const gray = palette[8]
+  let gray = palette[8]
   if (light) {
     [bg, fg] = [fg, bg]
   }
@@ -65,7 +65,7 @@ const format = (palette: Color[], light = false) => {
   })
   colors.push({
     name: 'Selected Text Color',
-    color: fg
+    color: light ? bg : fg
   })
   colors.push({
     name: 'Selection Color',
