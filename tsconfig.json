@@ -6,7 +6,6 @@
     "moduleResolution": "node",
     "preserveConstEnums": true,
     "sourceMap": false,
-    "allowJs": true,
     "resolveJsonModule": true
   },
   "include": [
