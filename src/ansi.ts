@@ -66,7 +66,7 @@ const createANSIPalette = (options: PaletteOptions = {}) => {
   }
   for (const hsd of hsdANSI) {
     let [ h, s ] = hsd
-    let y = 0.5 + hsd[2] + lightness
+    let y = 0.5 + (.05 * contrast + hsd[2]) + lightness
     h += hueOffset
     s *= saturationMultiplier
     const rgb = Color.fromHSY(h, s, y)
@@ -74,7 +74,7 @@ const createANSIPalette = (options: PaletteOptions = {}) => {
   }
   for (const hsd of hsdANSI) {
     let [ h, s ] = hsd
-    let y = 0.5 + (.15 * contrast + hsd[2]) + lightness
+    let y = 0.5 + (.20 * contrast + hsd[2]) + lightness
     h += hueOffset
     s *= saturationMultiplier
     const rgb = Color.fromHSY(h, s, y)
